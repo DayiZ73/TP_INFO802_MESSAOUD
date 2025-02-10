@@ -79,8 +79,8 @@ Chaque dossier contient son propre **serveur Node.js (Express) ou Python**, et c
 
 ###  1. Prérequis
 Avant de commencer, s'assurer d’avoir installé :
-- **Node.js** (v16+)
-- **Python** (3.8+)
+- **Node.js** (v16+) (J'utilise la v20.3.1)
+- **Python** (3.8+) (J'utilise la v3.9.0)
 
 ###  2. Cloner le projet
 
