@@ -33,7 +33,7 @@ function addMarker(lat, lon, popup) {
   routeLayers.push(marker);
 }
 
-// Charger véhicules (inchangé, juste pour info)
+// Charger véhicules
 async function loadVehicles() {
   try {
     const res = await fetch('/api/vehicles');
@@ -92,25 +92,24 @@ async function planRoute() {
     const data = await res.json();
     // data => { route, startCoords, endCoords, travelResult, stationsAlongRoute }
 
-    // (1) Afficher la route
+    // Afficher la route
     displayRoute(data.route.routes[0].geometry);
 
-    // (2) Ajouter un marqueur pour départ
+    // Ajouter un marqueur pour départ
     addMarker(data.startCoords.lat, data.startCoords.lon, `Départ : ${startCity}`);
 
-    // (3) Ajouter un marqueur pour arrivée
+    // Ajouter un marqueur pour arrivée
     addMarker(data.endCoords.lat, data.endCoords.lon, `Arrivée : ${endCity}`);
 
-    // (4) Afficher les bornes "stationsAlongRoute"
+    // Afficher les bornes "stationsAlongRoute"
     if (Array.isArray(data.stationsAlongRoute)) {
       data.stationsAlongRoute.forEach((stop, index) => {
         const station = stop.station;
         if (!station) return; // au cas où
 
-        // Attention : structure de "station"
         // => station.latitude, station.longitude, station.name, station.address...
-        const lat = station.latitude;     // ou station.ylatitude
-        const lon = station.longitude;    // ou station.xlongitude
+        const lat = station.latitude;
+        const lon = station.longitude;
         const name = station.name || 'Borne inconnue';
         const address = station.address || 'Adresse inconnue';
         const distance = station.distance || '???';
@@ -123,7 +122,7 @@ async function planRoute() {
       });
     }
 
-    // (5) Mettre à jour temps/cout
+    // Mettre à jour temps/cout
     document.getElementById('timeResult').textContent = data.travelResult.time;
     document.getElementById('costResult').textContent = data.travelResult.cost;
 

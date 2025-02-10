@@ -1,9 +1,6 @@
 const axios = require('axios');
 
 async function getChargingStationsNearby(lat, lon, radius) {
-  // Ex : https://opendata.reseaux-energies.fr/api/records/1.0/search/?dataset=bornes-irve
-  //      &rows=5
-  //      &geofilter.distance=lat,lon,radius
   const baseUrl = process.env.IRVE_API_BASE_URL;
   const dataset = process.env.IRVE_DATASET || 'bornes-irve';
   const rows = 5; // Nombre de résultats à afficher
@@ -15,7 +12,6 @@ async function getChargingStationsNearby(lat, lon, radius) {
     // On récupère directement les enregistrements
     const records = response.data.records || [];
 
-    // Transformons les données pour simplifier la réponse
     const chargingStations = response.data.records.map((record) => {
         const fields = record.fields;
   

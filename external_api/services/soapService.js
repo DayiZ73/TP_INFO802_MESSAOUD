@@ -12,7 +12,6 @@ async function getSoapTravelCalculation(distance, speed, autonomy, chargeTime, c
       cost_per_km: costPerKm,
     };
 
-    // Appel asynchrone de la méthode SOAP "calculate_trip"
     const [result] = await client.calculate_tripAsync(params);
     console.log("Résultat complet du SOAP:", result);
     

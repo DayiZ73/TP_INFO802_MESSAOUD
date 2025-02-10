@@ -7,7 +7,7 @@ const setupSwagger = require('./swagger');
 const app = express();
 app.use(express.json());
 
-// (Optionnel) Servir un dossier public si besoin
+// Servir un dossier public si besoin
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Monter le router
