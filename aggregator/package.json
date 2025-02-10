@@ -1,0 +1,21 @@
+{
+    "name": "aggregator",
+    "version": "1.0.0",
+    "description": "Projet agrégateur qui appelle plusieurs APIs existantes (cartographie, GraphQL, IRVE, SOAP).",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "author": "Ziyad",
+    "license": "ISC",
+    "dependencies": {
+        "@mapbox/polyline": "^1.2.1",
+        "axios": "^1.7.9",
+        "body-parser": "^1.20.3",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "soap": "^0.42.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1"
+    }
+}

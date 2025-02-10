@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Itinéraire - OpenRouteService</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Style basique -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+      .form-container {
+        padding: 20px;
+        background: #f4f4f9;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="routeForm" class="form-container">
+      <h3>Ville de départ</h3>
+      <input id="start-city" placeholder="Ville de départ" required />
+      <h3>Ville d'arrivée</h3>
+      <input id="end-city" placeholder="Ville d'arrivée" required />
+      <button type="submit">Calculer l'itinéraire</button>
+    </form>    
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Mapbox polyline pour décoder la polyline -->
+    <script src="https://unpkg.com/@mapbox/polyline"></script>
+
+    <!-- Votre script client -->
+    <script defer src="scriptTrajet.js"></script>
+  </body>
+</html>

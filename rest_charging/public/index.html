@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recherche de bornes de recharge</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #0078d7;
+    }
+    .form-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-container input {
+      padding: 10px;
+      margin: 0 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 150px;
+    }
+    .form-container button {
+      padding: 10px 15px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background-color: #005bb5;
+    }
+    .results {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      width: 250px;
+      text-align: center;
+    }
+    .card h2 {
+      font-size: 18px;
+      color: #0078d7;
+      margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Recherche de bornes de recharge</h1>
+
+  <div class="form-container">
+    <input type="text" id="lat" placeholder="Latitude (ex : 45.0)" />
+    <input type="text" id="lon" placeholder="Longitude (ex : 5.0)" />
+    <input type="text" id="radius" placeholder="Rayon (mètres)" />
+    <button id="searchBtn">Chercher</button>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <script>
+    document.getElementById('searchBtn').addEventListener('click', async () => {
+      const lat = document.getElementById('lat').value;
+      const lon = document.getElementById('lon').value;
+      const radius = document.getElementById('radius').value;
+
+      // Validation simple
+      if (!lat || !lon || !radius) {
+        alert('Veuillez remplir tous les champs.');
+        return;
+      }
+
+      try {
+        // Appel à l'API
+        const response = await fetch(`/api/charging-stations?lat=${lat}&lon=${lon}&radius=${radius}`);
+        const data = await response.json();
+
+        // Vérifier et afficher les résultats
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = ''; // Effacer les anciens résultats
+
+        if (data.stations && data.stations.length > 0) {
+          data.stations.forEach((station) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.innerHTML = `
+              <h2>${station.name || 'Station inconnue'}</h2>
+              <p><strong>Adresse :</strong> ${station.address || 'Non renseignée'}</p>
+              <p><strong>Type de prise :</strong> ${station.charging_type || 'Non renseigné'}</p>
+              <p><strong>Puissance max :</strong> ${station.power_max || 'Non renseignée'}</p>
+              <p><strong>Distance :</strong> ${station.distance || 'Inconnue'}</p>
+            `;
+
+            resultsDiv.appendChild(card);
+          });
+        } else {
+          resultsDiv.innerHTML = '<p>Aucune station trouvée.</p>';
+        }
+      } catch (error) {
+        console.error('Erreur lors de la recherche :', error);
+        alert('Erreur lors de la récupération des bornes. Consultez la console pour plus de détails.');
+      }
+    });
+  </script>
+</body>
+</html>

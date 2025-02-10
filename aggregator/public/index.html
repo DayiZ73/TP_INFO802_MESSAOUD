@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Planificateur de trajet</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      color: #333;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Barre horizontale en haut */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: #0078d7;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 999;
+    }
+    .top-bar h2 {
+      color: #fff;
+      margin: 0;
+      margin-right: 30px;
+      font-size: 20px;
+    }
+    .route-inputs {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .route-inputs input {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      outline: none;
+    }
+    .route-inputs button {
+      background: #005bb5;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .route-inputs button:hover {
+      background: #003f8a;
+    }
+
+    /* Volet à gauche pour le véhicule */
+    .vehicle-panel {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 250px;
+      bottom: 0;
+      background: #fff;
+      z-index: 999;
+      padding: 15px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .vehicle-panel h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #0078d7;
+      margin-bottom: 10px;
+    }
+    .vehicle-panel select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+    }
+    .vehicle-info {
+      background: #f9f9ff;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .vehicle-photo {
+      width: 100%;
+      height: 120px;
+      background: #ddd;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      object-fit: cover;
+    }
+    .vehicle-details p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* Div arrondie en bas pour temps/cout */
+    .travel-result {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 240px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      z-index: 999;
+      text-align: center;
+    }
+    .travel-result h4 {
+      margin: 0 0 10px 0;
+      color: #0078d7;
+    }
+    .travel-result p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Barre horizontale en haut -->
+  <div class="top-bar">
+    <h2>Planificateur</h2>
+    <div class="route-inputs">
+      <input type="text" id="startCity" placeholder="Ville de départ" />
+      <input type="text" id="endCity" placeholder="Ville d'arrivée" />
+      <button id="planRouteBtn">Afficher</button>
+    </div>
+  </div>
+
+  <!-- Volet à gauche pour choisir le véhicule -->
+  <div class="vehicle-panel">
+    <h3>Choix du véhicule</h3>
+    <select id="vehicleSelect"></select>
+
+    <!-- Div arrondie pour afficher infos du véhicule -->
+    <div class="vehicle-info" id="vehicleInfo">
+      <img src="" alt="Véhicule" class="vehicle-photo" id="vehiclePhoto" />
+      <div class="vehicle-details" id="vehicleDetails">
+        <p>Nom : <span id="vehicleName">--</span></p>
+        <p>Autonomie : <span id="vehicleRange">--</span> km</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Résultat du temps/coût (ancien SOAP) -->
+  <div class="travel-result" id="travelResult">
+    <h4>Trajet</h4>
+    <p>Temps : <span id="timeResult">--</span></p>
+    <p>Coût : <span id="costResult">--</span></p>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Mapbox polyline -->
+  <script src="https://unpkg.com/@mapbox/polyline"></script>
+  <script defer src="script.js"></script>
+</body>
+</html>

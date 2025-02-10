@@ -1,0 +1,21 @@
+{
+  "name": "charging-stations-service",
+  "version": "1.0.0",
+  "description": "Service REST pour interroger les bornes de recharge à proximité d'une position GPS.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "REST",
+    "IRVE",
+    "charging-stations"
+  ],
+  "author": "Ziyad",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
