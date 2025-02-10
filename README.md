@@ -81,7 +81,6 @@ Chaque dossier contient son propre **serveur Node.js (Express) ou Python**, et c
 Avant de commencer, s'assurer d’avoir installé :
 - **Node.js** (v16+)
 - **Python** (3.8+)
-- **Docker** (optionnel pour le SOAP)
 
 ###  2. Cloner le projet
 
