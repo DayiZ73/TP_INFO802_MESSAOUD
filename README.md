@@ -162,6 +162,16 @@ L'application dispose d'une documentation Swagger accessible via :
 
 ---
 
+## Dépoloiement
+
+L'application est deployé sur Azure, ci-dessous le lien de l'external API pour tester les endpoints :
+
+- **External API** → `hhttp://localhost:9100/api-docs](https://external-api-info802-messaoud.azurewebsites.net/api-docs`
+
+(Le Soap ne fonctionne pas sur le déploiement)
+
+---
+
 ## Conclusion
 
 Ce projet illustre une **architecture orientée services** où chaque service peut être **déployé indépendamment** et **évoluer séparément**. Il démontre également l’intégration de **REST, GraphQL et SOAP** pour répondre à des besoins différents.
